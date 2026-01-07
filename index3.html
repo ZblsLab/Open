@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('medium.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .register-form h2 {
+      text-align: center;
+      color: #fff;
+    }
+
+    .input-group {
+      margin: 15px 0;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .register-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    .login-prompt {
+      text-align: center;
+      margin-top: 10px;
+      color: #fff;
+    }
+
+    .login-prompt a {
+      color: #00f;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="form-container">
+    <form id="registerForm" class="register-form">
+      <h2>Register</h2>
+
+      <div class="input-group">
+        <input id="username" type="text" placeholder="Username" required />
+      </div>
+
+      <div class="input-group">
+        <input id="email" type="email" placeholder="Email" required />
+      </div>
+
+      <div class="input-group">
+        <input id="password" type="password" placeholder="Password" required />
+      </div>
+
+      <label class="checkbox-group">
+        <input id="terms" type="checkbox" />
+        Agree to terms & conditions
+      </label>
+
+      <button type="submit" class="register-btn">Register</button>
+
+      <p class="login-prompt">
+        Already have an account? <a href="#">Login</a>
+      </p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const terms = document.getElementById("terms").checked;
+
+      // Username validation
+      if (username.length < 3 || username.length > 20) {
+        alert("Username must be between 3 and 20 characters.");
+        return;
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      // Password strength validation
+      const strongPassword =
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+      if (!strongPassword.test(password)) {
+        alert(
+          "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character."
+        );
+        return;
+      }
+
+      // Terms & conditions
+      if (!terms) {
+        alert("You must agree to the terms & conditions.");
+        return;
+      }
+
+      // If everything is valid
+      alert("Registration successful!");
+    });
+  </script>
+
+</body>
+</html>
